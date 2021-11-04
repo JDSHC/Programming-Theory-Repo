@@ -32,7 +32,16 @@ public class PlayerController : Movable
 
     private void MovePlayer()
     {
-        transform.Translate(Input.GetAxisRaw("Horizontal") * speed * Time.deltaTime,0, Input.GetAxisRaw("Vertical") * speed * Time.deltaTime);
+        Vector3 target = new Vector3(Input.GetAxisRaw("Horizontal") * speed * Time.deltaTime, 
+            0,
+            Input.GetAxisRaw("Vertical") * speed * Time.deltaTime
+            );
+        
+        Vector3 dir = (target - transform.position).normalized;
+        
+        //transform.rotation = Quaternion.LookRotation(dir);
+        transform.Translate(target);
+
         CheckBoundaries();
     }
 }

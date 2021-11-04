@@ -43,6 +43,7 @@ public abstract class Cat : Movable
             GetNewDirection();
         }
         //Debug.Log($"Run to {CurrentDirection.x}/0/{CurrentDirection.z}: " );
+        
         transform.Translate(CurrentDirection.x * CurrentSpeed * Time.deltaTime,0, CurrentDirection.z * CurrentSpeed * Time.deltaTime);
         CheckBoundaries();
     }
@@ -113,6 +114,7 @@ public abstract class Cat : Movable
         Debug.Log($"New direction for {gameObject.name} after {TimeForDirection}");
 
         CurrentDirection = new Vector3(Random.value, 0, Random.value);
+        transform.rotation = Quaternion.LookRotation (CurrentDirection);
     }
 
     protected override void CheckBoundaries()
