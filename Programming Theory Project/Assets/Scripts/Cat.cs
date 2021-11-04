@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public abstract class Cat : MonoBehaviour
+public abstract class Cat : Movable
 {
     protected float BaseSpeed;
     protected float CurrentSpeed;
@@ -40,14 +40,11 @@ public abstract class Cat : MonoBehaviour
         // If direction should change
         if (Time.time >= TimeForDirection)
         {
-            // set random time for this direction and get new direction
-            TimeForDirection = Time.time + Random.Range(1.0f, 5.0f);
-            Debug.Log($"New direction for {gameObject.name} after {TimeForDirection}");
-
-            CurrentDirection = new Vector3(Random.value, 0, Random.value);;
+            GetNewDirection();
         }
         //Debug.Log($"Run to {CurrentDirection.x}/0/{CurrentDirection.z}: " );
         transform.Translate(CurrentDirection.x * CurrentSpeed * Time.deltaTime,0, CurrentDirection.z * CurrentSpeed * Time.deltaTime);
+        CheckBoundaries();
     }
 
     // ENCAPSULATION of different flee methods
@@ -107,6 +104,24 @@ public abstract class Cat : MonoBehaviour
     private void Walk()
     {
         CurrentSpeed /= RunSpeedFactor;
+    }
+
+    protected void GetNewDirection()
+    {
+        // set random time for this direction and get new direction
+        TimeForDirection = Time.time + Random.Range(1.0f, 5.0f);
+        Debug.Log($"New direction for {gameObject.name} after {TimeForDirection}");
+
+        CurrentDirection = new Vector3(Random.value, 0, Random.value);
+    }
+
+    protected override void CheckBoundaries()
+    {
+        if (transform.position.x > xBoundary || transform.position.x < -xBoundary || transform.position.z > zBoundary || transform.position.z < -zBoundary)
+        {
+            GetNewDirection();
+        }
+        base.CheckBoundaries();
     }
 
 }

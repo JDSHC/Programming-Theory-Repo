@@ -9,7 +9,7 @@ public class Siam : Cat
 
     private void Start()
     {
-        BaseSpeed = 4.0f;
+        BaseSpeed = 10.0f;
         CurrentSpeed = BaseSpeed;
         Weight = 10;
         RunSpeedFactor = 2f;

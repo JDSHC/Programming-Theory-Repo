@@ -9,7 +9,7 @@ public class MaineCoone : Cat
     
     private void Start()
     {
-        BaseSpeed = 1.5f;
+        BaseSpeed = 5f;
         CurrentSpeed = BaseSpeed;
         Weight = 30;
         RunSpeedFactor = 1.1f;
